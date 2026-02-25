@@ -317,13 +317,25 @@
   </div>
 
   <script>
+    // Check authentication cookie on page load
+    function checkAuth() {
+      const cookies = document.cookie.split(';');
+      const hasAuth = cookies.some(cookie => cookie.trim().startsWith('ubg_auth='));
+      if (!hasAuth) {
+        window.location.href = '/';
+      }
+    }
+
+    // Check auth immediately on page load
+    checkAuth();
+
     // HARDCODED CONFIGURATION
     const KEY_PART_1 = 'gsk_448IhOYDRrJz5iEGs8HyWGdyb3FYlaec';
     const KEY_PART_2 = 'MjxGXdgDMv5wpzXa7mc6';
-    const SYSTEM_PROMPT = 'You are ULTRA AI, a helpful assistant from UBG ULTRA. You are intelligent, friendly, and always refer to yourself as ULTRA AI. Keep responses concise and helpful. Never refer to yourself as ChatGPT or any other AI. You will say you are Ultra AI built by Divine X UBG.';
+    const SYSTEM_PROMPT = 'You are ULTRA AI, a helpful assistant from UBG ULTRA. You are intelligent, friendly, and always refer to yourself as ULTRA AI. Keep responses concise and helpful.';
 
     const API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-    const MODEL = 'openai/gpt-oss-20b';
+    const MODEL = 'mixtral-8x7b-32768';
 
     // Generate stars dynamically
     function generateStars() {
