@@ -3,28 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UBG Ultra Dictionary</title>
+    <title>Ultra Games - UBG ULTRA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap">
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
         
+        html, body {
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            color: #222;
+            overflow-x: hidden;
+        }
+
         body {
-            background-color: #f5f5f5;
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: radial-gradient(ellipse at 20% 50%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 80%, rgba(30, 144, 255, 0.15) 0%, transparent 50%),
+                        #0a0e27;
+        }
+
+        /* Animated stars */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-20px) translateX(10px); }
+        }
+
+        .space-stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        .star.small { width: 1px; height: 1px; }
+        .star.medium { width: 2px; height: 2px; }
+        .star.large { width: 3px; height: 3px; }
+
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: drift 20s infinite ease-in-out;
+        }
+
+        .nebula.purple {
+            width: 300px;
+            height: 300px;
+            background: rgba(138, 43, 226, 0.4);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .nebula.blue {
+            width: 250px;
+            height: 250px;
+            background: rgba(30, 144, 255, 0.4);
+            top: 50%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .nebula.cyan {
+            width: 280px;
+            height: 280px;
+            background: rgba(0, 255, 255, 0.3);
+            bottom: 10%;
+            left: 20%;
+            animation-delay: 4s;
         }
         
         .header {
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+            padding: 30px 20px;
+            background: rgba(20, 25, 45, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(127, 90, 240, 0.2);
+            box-shadow: 0 8px 32px rgba(127, 90, 240, 0.2);
         }
         
         .header h1 {
             margin: 0 0 20px 0;
-            font-size: 28px;
+            font-size: 2.2em;
+            font-weight: 800;
+            background: linear-gradient(120deg, #7f5af0 0%, #36cce4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
         }
         
         .search-container {
@@ -34,29 +122,37 @@
             margin: 0 auto;
             align-items: center;
             flex-wrap: wrap;
+            justify-content: center;
         }
         
         .search-bar {
             flex: 1;
             min-width: 250px;
             padding: 12px 16px;
-            border: none;
+            border: 1.5px solid rgba(127, 90, 240, 0.3);
             border-radius: 25px;
             font-size: 14px;
-            background: white;
-            color: #333;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            transition: box-shadow 0.2s;
+            transition: all 0.2s;
+        }
+
+        .search-bar::placeholder {
+            color: #707080;
         }
         
         .search-bar:focus {
             outline: none;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+            border-color: #7f5af0;
+            box-shadow: 0 0 0 3px rgba(127, 90, 240, 0.2);
+            background: rgba(255, 255, 255, 0.08);
         }
         
         .clear-search {
-            background: rgba(255,255,255,0.3);
-            color: white;
+            background: rgba(127, 90, 240, 0.3);
+            color: #a0b0c0;
             border: none;
             border-radius: 50%;
             width: 40px;
@@ -64,19 +160,23 @@
             cursor: pointer;
             font-size: 18px;
             display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
         }
 
         .clear-search.visible {
             display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .clear-search:hover {
-            background: rgba(255,255,255,0.5);
+            background: rgba(127, 90, 240, 0.5);
+            color: #fff;
         }
         
         .content {
+            position: relative;
+            z-index: 5;
             padding: 30px 20px;
             max-width: 1400px;
             margin: 0 auto;
@@ -88,12 +188,15 @@
         
         .section-title {
             text-align: left;
-            font-size: 20px;
-            font-weight: 600;
-            color: #333;
+            font-size: 1.5em;
+            font-weight: 700;
+            background: linear-gradient(120deg, #7f5af0 0%, #36cce4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 2px solid rgba(127, 90, 240, 0.3);
         }
         
         .game-container {
@@ -104,23 +207,25 @@
         }
         
         .card {
-            background: white;
+            background: rgba(20, 25, 45, 0.7);
             border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.2s;
             display: flex;
             flex-direction: column;
+            border: 1px solid rgba(127, 90, 240, 0.2);
         }
         
         .card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 20px rgba(127, 90, 240, 0.3);
+            border-color: #7f5af0;
         }
         
         .card-icon {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #7f5af0 0%, #36cce4 100%);
             color: white;
             font-size: 40px;
             padding: 30px;
@@ -136,13 +241,13 @@
             min-height: 120px;
             object-fit: cover;
             display: block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #7f5af0 0%, #36cce4 100%);
         }
         
         .card-name {
             padding: 15px;
             font-weight: 600;
-            color: #333;
+            color: #a0b0c0;
             text-align: center;
             flex-grow: 1;
             display: flex;
@@ -158,9 +263,10 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: #667eea;
+            color: #7f5af0;
             font-size: 18px;
             font-weight: 600;
+            z-index: 100;
         }
 
         #loading.visible {
@@ -175,7 +281,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: black;
+            background: #000;
             z-index: 1000;
             flex-direction: column;
         }
@@ -185,13 +291,14 @@
         }
         
         .viewer-header {
-            background: #333;
+            background: rgba(20, 25, 45, 0.95);
             color: white;
             padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 20px;
+            border-bottom: 1px solid rgba(127, 90, 240, 0.2);
         }
         
         .viewer-title {
@@ -201,7 +308,7 @@
         }
         
         .viewer-controls button {
-            background: #667eea;
+            background: rgba(127, 90, 240, 0.7);
             color: white;
             border: none;
             padding: 8px 16px;
@@ -209,11 +316,13 @@
             cursor: pointer;
             font-size: 12px;
             margin-left: 10px;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            font-weight: 600;
         }
         
         .viewer-controls button:hover {
-            background: #764ba2;
+            background: #7f5af0;
+            transform: translateY(-1px);
         }
         
         .viewer-controls button.close {
@@ -240,16 +349,18 @@
         }
 
         footer {
-            background: #f5f5f5;
-            border-top: 1px solid #ddd;
+            position: relative;
+            z-index: 5;
+            background: rgba(20, 25, 45, 0.85);
+            border-top: 1px solid rgba(127, 90, 240, 0.2);
             padding: 20px;
             text-align: center;
-            color: #666;
+            color: #a0b0c0;
             font-size: 12px;
         }
 
         footer a {
-            color: #667eea;
+            color: #7f5af0;
             text-decoration: none;
         }
 
@@ -268,31 +379,32 @@
         }
 
         #offlineBtn {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.4);
+            background: rgba(127, 90, 240, 0.3);
+            color: #a0b0c0;
+            border: 1.5px solid rgba(127, 90, 240, 0.3);
             padding: 10px 20px;
             border-radius: 25px;
             cursor: pointer;
             font-size: 14px;
             font-weight: 600;
-            transition: background 0.2s, border-color 0.2s;
+            transition: all 0.2s;
         }
 
         #offlineBtn:hover:not(:disabled) {
-            background: rgba(255,255,255,0.35);
-            border-color: rgba(255,255,255,0.7);
+            background: rgba(127, 90, 240, 0.5);
+            border-color: #7f5af0;
+            color: #fff;
         }
 
         #offlineBtn:disabled {
-            opacity: 0.7;
+            opacity: 0.5;
             cursor: default;
         }
 
         .offline-progress-wrap {
             width: 100%;
             max-width: 500px;
-            background: rgba(255,255,255,0.15);
+            background: rgba(127, 90, 240, 0.15);
             border-radius: 10px;
             height: 8px;
             overflow: hidden;
@@ -305,66 +417,71 @@
 
         #offlineProgress {
             height: 100%;
-            background: #4caf50;
+            background: linear-gradient(120deg, #7f5af0 0%, #36cce4 100%);
             border-radius: 10px;
             width: 0%;
             transition: width 0.3s;
         }
 
         #offlineStatus {
-            color: rgba(255,255,255,0.8);
+            color: #a0b0c0;
             font-size: 12px;
         }
 
         #offlineCancelBtn {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: #a0b0c0;
+            border: 1px solid rgba(127, 90, 240, 0.2);
             padding: 6px 14px;
             border-radius: 15px;
             cursor: pointer;
             font-size: 12px;
             display: none;
+            transition: all 0.2s;
         }
 
         #offlineCancelBtn:hover {
-            background: rgba(255,255,255,0.35);
+            background: rgba(127, 90, 240, 0.2);
+            color: #fff;
         }
 
         .viewer-controls button.fullscreen-btn {
-            background: #28a745;
+            background: rgba(76, 175, 80, 0.7);
         }
 
         .viewer-controls button.fullscreen-btn:hover {
-            background: #218838;
+            background: #4caf50;
         }
 
         .viewer-controls button.fav-btn {
-            background: #e91e63;
+            background: rgba(233, 30, 99, 0.7);
         }
 
         .viewer-controls button.fav-btn:hover {
-            background: #c2185b;
+            background: #e91e63;
         }
 
         #clearCacheLink {
-            color: rgba(255,255,255,0.6);
+            color: #a0b0c0;
             font-size: 11px;
             text-decoration: none;
+            cursor: pointer;
+            transition: color 0.2s;
         }
 
         #clearCacheLink:hover {
-            color: white;
+            color: #7f5af0;
         }
 
         .info-banner {
-            background: #fff3cd;
-            color: #856404;
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
             padding: 12px 40px 12px 16px;
             font-size: 13px;
             text-align: center;
-            position: relative;
-            border-bottom: 1px solid #ffc107;
+            border-bottom: 1px solid rgba(255, 193, 7, 0.3);
         }
 
         .info-banner .dismiss-banner {
@@ -374,589 +491,32 @@
             transform: translateY(-50%);
             background: none;
             border: none;
-            color: #856404;
+            color: #ffc107;
             font-size: 18px;
             cursor: pointer;
             padding: 4px 8px;
             line-height: 1;
+            transition: color 0.2s;
         }
 
         .info-banner .dismiss-banner:hover {
-            color: #533f03;
+            color: #ff9800;
+        }
+
+        @media (max-width: 540px) {
+            .header h1 { font-size: 1.8em; }
+            .search-bar { min-width: 200px; }
+            .game-container { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 15px; }
         }
     </style>
 </head>
 <body>
+    <!-- ANIMATED SPACE BACKGROUND -->
+    <div class="space-stars">
+        <div class="nebula purple"></div>
+        <div class="nebula blue"></div>
+        <div class="nebula cyan"></div>
+    </div>
+
     <div class="info-banner" id="infoBanner">
-        ⚠️ If a game shows a blank screen, wait a few seconds for it to load. If it still doesn't work, click <strong>"📑 New Tab"</strong> to open it directly.
-        <button class="dismiss-banner" onclick="document.getElementById('infoBanner').style.display='none'; localStorage.setItem('gn_banner_dismissed','1');">✕</button>
-    </div>
-    <script>if(localStorage.getItem('gn_banner_dismissed')==='1') document.getElementById('infoBanner').style.display='none';</script>
-    <div class="header">
-        <h1>📚 Code Universe Dictionary</h1>
-        <div class="search-container">
-            <input type="text" class="search-bar" id="searchInput" placeholder="Search games...">
-            <button class="clear-search" id="clearBtn">✕</button>
-        </div>
-        <div class="offline-section">
-            <button id="offlineBtn" onclick="handleOfflineAction()" style="display:none">📥 Download All for Offline</button>
-            <button id="offlineCancelBtn" onclick="cancelOfflineDownload()">Cancel</button>
-            <span id="offlineStatus"></span>
-            <a href="#" id="clearCacheLink" onclick="clearOfflineCache(); return false;" style="display:none">clear cache</a>
-        </div>
-        <div class="offline-section">
-            <div class="offline-progress-wrap" id="offlineProgressWrap">
-                <div id="offlineProgress"></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="loading">Loading...</div>
-
-    <div class="content">
-        <div class="section">
-            <div class="section-title">⭐ Recently Played</div>
-            <div class="game-container" id="recentContainer"></div>
-        </div>
-
-        <div class="section">
-            <div class="section-title">❤️ Favorites</div>
-            <div class="game-container" id="favContainer"></div>
-        </div>
-
-        <div class="section">
-            <div class="section-title">🎮 All Games</div>
-            <div class="game-container" id="gamesContainer"></div>
-        </div>
-    </div>
-
-    <!-- Game Viewer Modal -->
-    <div id="gameViewer">
-        <div class="viewer-header">
-            <div class="viewer-title" id="gameName">Game</div>
-            <div class="viewer-controls">
-                <button class="fav-btn" id="favBtn" onclick="toggleViewerFav()">♡ Fav</button>
-                <button onclick="openInNewTab()">📑 New Tab</button>
-                <button class="fullscreen-btn" id="fsBtn" onclick="toggleFullscreen()">🔲 Fullscreen</button>
-                <button class="close" onclick="closeViewer()">✕ Close</button>
-            </div>
-        </div>
-        <iframe id="gameFrame" sandbox="allow-same-origin allow-scripts allow-forms allow-pointer-lock allow-popups allow-modals allow-top-navigation" allow="autoplay; fullscreen; accelerometer; gyroscope; magnetometer; vr; xr; xr-spatial-tracking" allowfullscreen></iframe>
-    </div>
-
-    <footer>
-        <p>🎮 Code Universe Dictionary — Access 700+ Games</p>
-        <p style="margin-top:6px;font-size:11px;color:#999">These games are hosted by third-party partners and are not owned, operated, or endorsed by Code Universe. All game content belongs to its respective creators.</p>
-        <p style="margin-top:8px"><a href="#" onclick="toggleSettingsPanel(); return false;">⚙️ Settings</a></p>
-    </footer>
-
-    <!-- Settings Panel -->
-    <div id="settingsPanel" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;box-shadow:0 -4px 20px rgba(0,0,0,0.15);border-radius:16px 16px 0 0;padding:24px;z-index:1500;max-height:50vh;overflow-y:auto;transition:transform 0.3s ease;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-            <h3 style="margin:0;font-size:18px;">⚙️ Settings</h3>
-            <button onclick="toggleSettingsPanel()" style="background:none;border:none;font-size:22px;cursor:pointer;padding:4px 8px;">✕</button>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:12px;">
-            <button onclick="clearRecentGames()" style="padding:12px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;font-size:14px;text-align:left;">🕐 Clear Recently Played</button>
-            <button onclick="clearFavoriteGames()" style="padding:12px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;font-size:14px;text-align:left;">💔 Clear All Favorites</button>
-            <button onclick="clearOfflineCache()" style="padding:12px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;font-size:14px;text-align:left;">🗑️ Clear Offline Cache</button>
-            <button onclick="localStorage.removeItem('gn_banner_dismissed');document.getElementById('infoBanner').style.display='';toggleSettingsPanel();" style="padding:12px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;font-size:14px;text-align:left;">🔔 Show Info Banner Again</button>
-        </div>
-    </div>
-
-    <script>
-        let allGames = [];
-        let currentGame = null;
-        const MAX_RECENT = 5;
-        const CACHE_NAME = 'gn-offline-v1';
-        let offlineCancelled = false;
-        const COVERS_CDN = 'https://cdn.jsdelivr.net/gh/gn-math/covers@main';
-        let coverMap = {};  // game name → numeric zone id
-        
-        // Games reported to have issues (multi-part loaders, emulators, etc.)
-        const PROBLEMATIC_GAMES = new Set([
-            "Amanda the Adventurer", "Andys Apple Farm", "Baldis Basics Classic Remastered",
-            "Bendy and the Ink Machine", "Class of 09", "Cooking Mama 3", "Cuphead",
-            "Deltatraveler", "Duck Life 8", "FIFA 10", "FIFA 11", "Fears to Fathom_ Home Alone",
-            "Final Fantasy VII", "Five Nights at Epsteins", "Flappy Bird",
-            "Getting Over It with Bennett Foddy", "Granny 2", "Granny 3", "Kindergarten",
-            "Kindergarten 2", "Kindergarten 3", "Kirby  Soft  Wet", "Kirby Super Star Ultra",
-            "Metal Gear Solid", "Milk Outside A Bag Of Milk Outside A Bag Of Milk",
-            "Nubbys Number Factory", "Oshi Oshi Punch", "Pizza Tower", "Pokemon HeartGold",
-            "Quake III Arena", "REPO", "Raft", "Raldis Crackhouse", "Real Flight Simulator",
-            "Rolling Sky", "Side Effects", "Slender_ The 8 Pages", "Slope", "SpiderDoll",
-            "Steal A Brainrot", "Swordfight", "The Legend of Zelda Majoras Mask",
-            "The Legend of Zelda Ocarina of Time", "The Man In The Window", "They Are Coming",
-            "Tomodachi Collection", "Touhou_ Luminous Strike", "Undertale Yellow", "Yandere Simulator"
-        ]);
-
-        // Initialize
-        async function initGames() {
-            try {
-                document.getElementById('loading').classList.add('visible');
-                const response = await fetch('/CODE/games/gn/games.json');
-                if (!response.ok) throw new Error('Failed to load games');
-                
-                const games = await response.json();
-                allGames = games.filter(g => !g.id.startsWith('-') && !g.name.includes('[!]'));
-
-                // Load cover map (name → numeric id) from zones.json
-                try {
-                    const zr = await fetch('https://cdn.jsdelivr.net/gh/gn-math/assets@main/zones.json');
-                    if (zr.ok) {
-                        const zones = await zr.json();
-                        zones.forEach(z => { if (z.name && z.id) coverMap[z.name] = z.id; });
-                    }
-                } catch(e) { console.warn('Cover map unavailable:', e); }
-
-                renderGames();
-                renderRecent();
-                renderFavorites();
-                document.getElementById('loading').classList.remove('visible');
-                updateOfflineButton();
-            } catch (error) {
-                console.error('Error loading games:', error);
-                document.getElementById('loading').textContent = '❌ Failed to load. Refresh the page.';
-            }
-        }
-
-        function renderGames() {
-            const container = document.getElementById('gamesContainer');
-            container.innerHTML = '';
-            allGames.forEach(game => {
-                container.appendChild(createCard(game));
-            });
-        }
-
-        function renderRecent() {
-            const recent = getRecent();
-            const container = document.getElementById('recentContainer');
-            container.innerHTML = '';
-            
-            if (recent.length === 0) {
-                container.innerHTML = '<p style="color:#999">No games played yet</p>';
-                return;
-            }
-
-            recent.forEach(gameId => {
-                const game = allGames.find(g => g.id === gameId);
-                if (game) container.appendChild(createCard(game));
-            });
-        }
-
-        function renderFavorites() {
-            const favs = getFavorites();
-            const container = document.getElementById('favContainer');
-            container.innerHTML = '';
-            
-            if (favs.length === 0) {
-                container.innerHTML = '<p style="color:#999">No favorites yet</p>';
-                return;
-            }
-
-            favs.forEach(gameId => {
-                const game = allGames.find(g => g.id === gameId);
-                if (game) container.appendChild(createCard(game));
-            });
-        }
-
-        function createCard(game) {
-            const card = document.createElement('div');
-            card.className = 'card';
-
-            // Use numeric zone ID for cover, or game.id if already numeric
-            const numId = coverMap[game.name] || (/^\d+$/.test(game.id) ? game.id : null);
-            if (numId !== null) {
-                card.innerHTML = `
-                    <img class="card-cover" src="${COVERS_CDN}/${numId}.png" alt="" loading="lazy"
-                         onerror="this.outerHTML='<div class=card-icon>🎯</div>'">
-                    <div class="card-name">${game.name}</div>
-                `;
-            } else {
-                card.innerHTML = `
-                    <div class="card-icon">🎯</div>
-                    <div class="card-name">${game.name}</div>
-                `;
-            }
-            card.onclick = () => playGame(game);
-            return card;
-        }
-
-        function getFavorites() {
-            try {
-                return JSON.parse(localStorage.getItem('gn_favorites') || '[]');
-            } catch {
-                return [];
-            }
-        }
-
-        function addFavorite(gameId) {
-            const favs = getFavorites();
-            if (!favs.includes(gameId)) {
-                favs.push(gameId);
-                localStorage.setItem('gn_favorites', JSON.stringify(favs));
-                renderFavorites();
-            }
-        }
-
-        function removeFavorite(gameId) {
-            let favs = getFavorites();
-            favs = favs.filter(id => id !== gameId);
-            localStorage.setItem('gn_favorites', JSON.stringify(favs));
-            renderFavorites();
-        }
-
-        function getRecent() {
-            try {
-                return JSON.parse(localStorage.getItem('gn_lastPlayed') || '[]');
-            } catch {
-                return [];
-            }
-        }
-
-        function addRecent(gameId) {
-            let recent = getRecent();
-            recent = recent.filter(id => id !== gameId);
-            recent.unshift(gameId);
-            recent = recent.slice(0, MAX_RECENT);
-            localStorage.setItem('gn_lastPlayed', JSON.stringify(recent));
-            renderRecent();
-        }
-
-        // Game Viewer
-        async function playGame(game) {
-            currentGame = game;
-            
-            // Check if game has known issues
-            if (PROBLEMATIC_GAMES.has(game.name)) {
-                showWarningModal(game);
-                return;
-            }
-            
-            // Safe to load
-            loadGameSafe(game);
-        }
-        
-        function showWarningModal(game) {
-            const warningHtml = `
-                <div style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:2000;" id="warningOverlay" onclick="if(event.target.id==='warningOverlay') closeWarning()">
-                    <div style="background:white;padding:40px;border-radius:12px;max-width:400px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,0.3);">
-                        <div style="font-size:48px;margin-bottom:20px;">⚠️</div>
-                        <h2 style="margin:0 0 15px 0;color:#333;font-size:22px;">${game.name}</h2>
-                        <p style="margin:0 0 25px 0;color:#666;font-size:15px;line-height:1.5;">This game has been reported by users to not work properly (black screen, loading issues, or crashes).</p>
-                        <p style="margin:0 0 30px 0;color:#999;font-size:13px;">You can still try playing it, but you may experience issues.</p>
-                        <div style="display:flex;gap:10px;">
-                            <button onclick="closeWarning()" style="flex:1;padding:12px;background:#ccc;border:none;border-radius:6px;cursor:pointer;font-weight:600;">← Go Back</button>
-                            <button onclick="playAnyway('${game.id}')" style="flex:1;padding:12px;background:#dc3545;color:white;border:none;border-radius:6px;cursor:pointer;font-weight:600;">Play Anyway →</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            document.body.insertAdjacentHTML('beforeend', warningHtml);
-        }
-        
-        function closeWarning() {
-            const overlay = document.getElementById('warningOverlay');
-            if (overlay) overlay.remove();
-        }
-        
-        function playAnyway(gameId) {
-            closeWarning();
-            const game = allGames.find(g => g.id === gameId);
-            if (game) loadGameSafe(game);
-        }
-        
-        function loadGameSafe(game) {
-            addRecent(game.id);
-            
-            const viewer = document.getElementById('gameViewer');
-            const frame = document.getElementById('gameFrame');
-            document.getElementById('gameName').textContent = game.name;
-            
-            // Set favorite button state
-            const favBtn = document.getElementById('favBtn');
-            if (favBtn) favBtn.textContent = getFavorites().includes(game.id) ? '♥ Fav' : '♡ Fav';
-            
-            viewer.classList.add('visible');
-            
-            // Update URL hash so heartbeat reports the game name to the server
-            window.location.hash = encodeURIComponent(game.name);
-            
-            // Load game directly via iframe src — much more reliable than doc.write().
-            // The browser handles relative paths, scripts, and modules natively.
-            // The SW or Cache API can still serve cached responses for offline.
-            const gameUrl = `/games/${encodeURIComponent(game.folder)}/`;
-            frame.src = gameUrl;
-        }
-
-        function closeViewer() {
-            if (document.fullscreenElement) document.exitFullscreen();
-            document.getElementById('gameViewer').classList.remove('visible');
-            document.getElementById('gameFrame').src = 'about:blank';
-            const fsBtn = document.getElementById('fsBtn');
-            if (fsBtn) fsBtn.textContent = '🔲 Fullscreen';
-            // Clear hash when closing game viewer
-            history.replaceState(null, '', window.location.pathname + window.location.search);
-        }
-
-        function openInNewTab() {
-            if (currentGame) {
-                const url = `/CODE/games/gn/${encodeURIComponent(currentGame.folder)}/`;
-                window.open(url, '_blank');
-            }
-        }
-
-        // Fullscreen toggle — fullscreen the IFRAME so the header bar is hidden
-        function toggleFullscreen() {
-            const frame = document.getElementById('gameFrame');
-            if (document.fullscreenElement) {
-                document.exitFullscreen();
-            } else {
-                frame.requestFullscreen().catch(() => {
-                    // Fallback: fullscreen the whole viewer if iframe fullscreen fails
-                    document.getElementById('gameViewer').requestFullscreen().catch(() => {});
-                });
-            }
-        }
-
-        document.addEventListener('fullscreenchange', () => {
-            const btn = document.getElementById('fsBtn');
-            if (btn) btn.textContent = document.fullscreenElement ? '⬜ Exit FS' : '🔲 Fullscreen';
-        });
-
-        // Favorite toggle in viewer
-        function toggleViewerFav() {
-            if (!currentGame) return;
-            const favs = getFavorites();
-            const btn = document.getElementById('favBtn');
-            if (favs.includes(currentGame.id)) {
-                removeFavorite(currentGame.id);
-                if (btn) btn.textContent = '♡ Fav';
-            } else {
-                addFavorite(currentGame.id);
-                if (btn) btn.textContent = '♥ Fav';
-            }
-        }
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                // If in fullscreen, let browser handle exit first
-                if (document.fullscreenElement) return;
-                const viewer = document.getElementById('gameViewer');
-                if (viewer.classList.contains('visible')) {
-                    closeViewer();
-                }
-            }
-        });
-
-        // ── Offline Download System (using Cache API directly) ────
-        async function getOfflineState() {
-            if (!('caches' in window)) return { supported: false };
-            try {
-                const cache = await caches.open(CACHE_NAME);
-                const paths = allGames.map(g => ({
-                    path: `/CODE/games/gn/${encodeURIComponent(g.folder)}/`,
-                    id: g.id,
-                    name: g.name,
-                    folder: g.folder
-                }));
-                // Use cache.match() for reliable URL matching — it uses the same
-                // URL normalization that cache.put() used when storing entries,
-                // so it avoids any percent-encoding mismatches.
-                const results = await Promise.all(paths.map(async p => {
-                    const match = await cache.match(p.path);
-                    return { ...p, cached: !!match };
-                }));
-                const missing = results.filter(r => !r.cached);
-                const downloaded = results.length - missing.length;
-                return { supported: true, total: paths.length, downloaded, missing };
-            } catch { return { supported: false }; }
-        }
-
-        async function updateOfflineButton() {
-            const btn = document.getElementById('offlineBtn');
-            const status = document.getElementById('offlineStatus');
-            const clearLink = document.getElementById('clearCacheLink');
-            if (!btn) return;
-            const state = await getOfflineState();
-            if (!state.supported || state.total === 0) { btn.style.display = 'none'; return; }
-            btn.style.display = '';
-            btn.disabled = false;
-            if (state.downloaded === 0) {
-                btn.textContent = `📥 Download All ${state.total} Games for Offline`;
-                btn.dataset.action = 'download-all';
-                status.textContent = '';
-                if (clearLink) clearLink.style.display = 'none';
-            } else if (state.missing.length > 0) {
-                btn.textContent = `📥 Add ${state.missing.length} New Games`;
-                btn.dataset.action = 'add-new';
-                status.textContent = `${state.downloaded}/${state.total} cached`;
-                if (clearLink) clearLink.style.display = 'none';
-            } else {
-                btn.textContent = '🔍 Check for Corruption';
-                btn.dataset.action = 'check';
-                status.textContent = `All ${state.total} games cached ✓`;
-                if (clearLink) clearLink.style.display = '';
-            }
-        }
-
-        async function handleOfflineAction() {
-            const btn = document.getElementById('offlineBtn');
-            if (btn.dataset.action === 'check') await checkCorruption();
-            else await downloadGamesForOffline();
-        }
-
-        async function downloadGamesForOffline() {
-            const btn = document.getElementById('offlineBtn');
-            const progressWrap = document.getElementById('offlineProgressWrap');
-            const progressBar = document.getElementById('offlineProgress');
-            const status = document.getElementById('offlineStatus');
-            const cancelBtn = document.getElementById('offlineCancelBtn');
-            offlineCancelled = false;
-            btn.disabled = true;
-            cancelBtn.style.display = '';
-            progressWrap.classList.add('visible');
-            progressBar.style.width = '0%';
-
-            const state = await getOfflineState();
-            if (!state.supported) return;
-            const toDownload = state.missing;
-            const total = toDownload.length;
-
-            const cache = await caches.open(CACHE_NAME);
-            let done = 0, failed = 0;
-
-            for (const entry of toDownload) {
-                if (offlineCancelled) break;
-                const url = `/CODE/games/gn/${encodeURIComponent(entry.folder)}/`;
-                const name = entry.name || entry.folder;
-                try {
-                    const resp = await fetch(url);
-                    if (resp && resp.ok) {
-                        const html = await resp.text();
-                        await cache.put(url, new Response(html, { headers: { 'Content-Type': 'text/html' } }));
-                        done++;
-                    } else { failed++; }
-                } catch (e) {
-                    failed++;
-                    if (e.name === 'QuotaExceededError') {
-                        status.textContent = `Storage full after ${done} games`;
-                        break;
-                    }
-                }
-                btn.textContent = `📥 ${done}/${total} — ${name}`;
-                status.textContent = `Downloading: ${name}`;
-                progressBar.style.width = `${(done / total) * 100}%`;
-            }
-
-            cancelBtn.style.display = 'none';
-            progressBar.style.width = '100%';
-            if (failed > 0) {
-                status.textContent = `Done — ${done} saved, ${failed} failed`;
-            } else {
-                status.textContent = `All ${done} games saved ✓`;
-            }
-            setTimeout(() => progressWrap.classList.remove('visible'), 3000);
-            await updateOfflineButton();
-        }
-
-        function cancelOfflineDownload() {
-            offlineCancelled = true;
-            document.getElementById('offlineCancelBtn').style.display = 'none';
-        }
-
-        async function checkCorruption() {
-            const btn = document.getElementById('offlineBtn');
-            const progressWrap = document.getElementById('offlineProgressWrap');
-            const progressBar = document.getElementById('offlineProgress');
-            const status = document.getElementById('offlineStatus');
-            btn.disabled = true;
-            btn.textContent = '🔍 Checking…';
-            progressWrap.classList.add('visible');
-            progressBar.style.width = '0%';
-
-            try {
-                const cache = await caches.open(CACHE_NAME);
-                const keys = await cache.keys();
-                let ok = 0, bad = 0;
-                for (let i = 0; i < keys.length; i++) {
-                    try {
-                        const resp = await cache.match(keys[i]);
-                        const text = await resp.text();
-                        if (text && text.length > 100 && text.includes('<')) { ok++; }
-                        else { bad++; await cache.delete(keys[i]); }
-                    } catch { bad++; await cache.delete(keys[i]); }
-                    progressBar.style.width = `${((i + 1) / keys.length) * 100}%`;
-                    status.textContent = `Checking ${i + 1}/${keys.length}…`;
-                }
-                progressBar.style.width = '100%';
-                status.textContent = bad > 0
-                    ? `Found ${bad} corrupt — removed. Re-download to fix.`
-                    : `All ${ok} games OK ✓`;
-            } catch (e) {
-                status.textContent = 'Check failed: ' + e.message;
-            }
-            setTimeout(() => progressWrap.classList.remove('visible'), 3000);
-            await updateOfflineButton();
-        }
-
-        async function clearOfflineCache() {
-            if (confirm('Remove all cached games? You can re-download them later.')) {
-                await caches.delete(CACHE_NAME);
-                await updateOfflineButton();
-            }
-        }
-
-        // Search
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            const container = document.getElementById('gamesContainer');
-            container.innerHTML = '';
-            
-            document.getElementById('clearBtn').classList.toggle('visible', query.length > 0);
-            
-            if (!query) {
-                renderGames();
-                return;
-            }
-            
-            const filtered = allGames.filter(g => g.name.toLowerCase().includes(query));
-            filtered.forEach(game => {
-                container.appendChild(createCard(game));
-            });
-        });
-
-        document.getElementById('clearBtn').addEventListener('click', () => {
-            document.getElementById('searchInput').value = '';
-            document.getElementById('clearBtn').classList.remove('visible');
-            renderGames();
-        });
-
-        window.addEventListener('load', () => {
-            initGames();
-        });
-
-        // ── Settings Panel ──
-        function toggleSettingsPanel() {
-            const panel = document.getElementById('settingsPanel');
-            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-        }
-
-        function clearRecentGames() {
-            localStorage.removeItem('gn_lastPlayed');
-            renderRecent();
-            toggleSettingsPanel();
-            alert('Recently played cleared!');
-        }
-
-        function clearFavoriteGames() {
-            if (!confirm('Remove all favorites?')) return;
-            localStorage.removeItem('gn_favorites');
-            renderFavorites();
-            toggleSettingsPanel();
-            alert('Favorites cleared!');
-        }
-    </script>
-</body>
-</html>
+        ⚠️ If a game shows a blank screen, wait a few seconds for it to
