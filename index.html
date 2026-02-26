@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>UBG ULTRA</title>
+  <title>Unified Brilliant Grammer</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap">
@@ -20,729 +20,163 @@
       align-items: center; 
       min-height: 100vh;
       padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
 
-    /* ANIMATED SPACE BACKGROUND */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: radial-gradient(ellipse at 20% 50%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
-                  radial-gradient(ellipse at 80% 80%, rgba(30, 144, 255, 0.15) 0%, transparent 50%),
-                  #0a0e27;
-      z-index: -2;
-    }
-
-    /* Animated stars */
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 1; }
-    }
-
-    @keyframes drift {
-      0%, 100% { transform: translateY(0px) translateX(0px); }
-      50% { transform: translateY(-20px) translateX(10px); }
-    }
-
-    .space-stars {
-      position: fixed;
-      top: 0;
-      left: 0;
+    /* LANDING PAGE STYLES */
+    .landing-hero {
       width: 100%;
-      height: 100%;
-      z-index: -1;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .star {
-      position: absolute;
-      background: #fff;
-      border-radius: 50%;
-      animation: twinkle 3s infinite;
-    }
-
-    .star.small { width: 1px; height: 1px; }
-    .star.medium { width: 2px; height: 2px; }
-    .star.large { width: 3px; height: 3px; }
-
-    .nebula {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.3;
-      animation: drift 20s infinite ease-in-out;
-    }
-
-    .nebula.purple {
-      width: 300px;
-      height: 300px;
-      background: rgba(138, 43, 226, 0.4);
-      top: 10%;
-      left: 10%;
-      animation-delay: 0s;
-    }
-
-    .nebula.blue {
-      width: 250px;
-      height: 250px;
-      background: rgba(30, 144, 255, 0.4);
-      top: 50%;
-      right: 10%;
-      animation-delay: 2s;
-    }
-
-    .nebula.cyan {
-      width: 280px;
-      height: 280px;
-      background: rgba(0, 255, 255, 0.3);
-      bottom: 10%;
-      left: 20%;
-      animation-delay: 4s;
-    }
-
-    .hidden { display: none !important; }
-
-    /* Page wrapper */
-    .page {
-      width: 100%;
-      max-width: 480px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 40px 24px;
-      position: relative;
-      z-index: 10;
-    }
-
-    /* LOGIN PAGE */
-    #login-page {
-      background: transparent;
-      text-align: center;
-    }
-
-    .login-hero {
-      width: 100%;
-      max-width: 420px;
-      background: rgba(20, 25, 45, 0.85);
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       border-radius: 24px;
       padding: 60px 40px;
-      box-shadow: 0 8px 32px rgba(127, 90, 240, 0.2), 0 0 40px rgba(30, 144, 255, 0.1);
-      border: 1px solid rgba(127, 90, 240, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      text-align: center;
     }
 
-    .logo-large {
-      font-size: 3.2em;
+    .logo-text {
+      font-size: 2.2em;
       font-weight: 800;
-      letter-spacing: -1px;
-      margin-bottom: 20px;
-      background: linear-gradient(120deg, #7f5af0 0%, #36cce4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #667eea;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-subtitle {
+      font-size: 0.9em;
+      color: #999;
+      margin-bottom: 32px;
+      letter-spacing: 0.3px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .stat-box {
+      background: #f5f5f5;
+      padding: 20px;
+      border-radius: 12px;
+      border-left: 4px solid #667eea;
+    }
+
+    .stat-number {
+      font-size: 2em;
+      font-weight: 800;
+      color: #667eea;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.85em;
+      color: #666;
+      font-weight: 500;
     }
 
     .tagline {
-      font-size: 1em;
-      color: #a0b0c0;
-      margin-bottom: 48px;
-      letter-spacing: 0.3px;
-    }
-
-    .login-form {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .form-group {
-      margin-bottom: 24px;
-      text-align: left;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.95em;
+      font-size: 1.1em;
+      color: #555;
+      margin-bottom: 12px;
+      line-height: 1.6;
       font-weight: 500;
-      color: #a0b0c0;
-      margin-bottom: 8px;
-      letter-spacing: 0.2px;
     }
 
-    .form-group input {
+    .description {
+      font-size: 0.95em;
+      color: #777;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+
+    .join-btn {
       width: 100%;
-      padding: 14px 16px;
-      border: 1.5px solid rgba(127, 90, 240, 0.3);
-      border-radius: 12px;
-      font-family: 'Inter', sans-serif;
-      font-size: 1em;
-      color: #fff;
-      background: rgba(255, 255, 255, 0.05);
-      transition: all 0.3s;
-      outline: none;
-    }
-
-    .form-group input::placeholder {
-      color: #707080;
-    }
-
-    .form-group input:focus {
-      border-color: #7f5af0;
-      box-shadow: 0 0 0 3px rgba(127, 90, 240, 0.2), inset 0 0 0 1px rgba(127, 90, 240, 0.1);
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .login-btn {
-      width: 100%;
-      padding: 14px 24px;
+      padding: 16px 24px;
       border: none;
       border-radius: 12px;
-      background: linear-gradient(120deg, #7f5af0 0%, #36cce4 100%);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: #fff;
       font-size: 1.05em;
       font-weight: 600;
       letter-spacing: 0.3px;
       cursor: pointer;
       transition: all 0.2s;
-      box-shadow: 0 6px 20px rgba(127, 90, 240, 0.35);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.35);
+      text-decoration: none;
+      display: inline-block;
     }
 
-    .login-btn:hover {
+    .join-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(127, 90, 240, 0.45);
+      box-shadow: 0 8px 28px rgba(102, 126, 234, 0.45);
     }
 
-    .login-btn:active {
+    .join-btn:active {
       transform: translateY(0);
     }
 
-    .login-msg {
-      margin-top: 16px;
-      font-size: 0.95em;
-      color: #ff6b6b;
-      min-height: 20px;
-    }
-
-    .login-hint {
-      margin-top: 32px;
-      font-size: 0.85em;
-      color: #707080;
-      line-height: 1.6;
-    }
-
-    /* ACCOUNT CREATION PAGE */
-    #create-account-page {
+    /* Hidden activation button - completely invisible */
+    #hidden-activate-btn {
+      position: fixed;
+      width: 1px;
+      height: 1px;
+      top: 10px;
+      right: 10px;
       background: transparent;
-    }
-
-    .account-hero {
-      width: 100%;
-      max-width: 420px;
-      background: rgba(20, 25, 45, 0.85);
-      backdrop-filter: blur(10px);
-      border-radius: 24px;
-      padding: 48px 40px;
-      box-shadow: 0 8px 32px rgba(127, 90, 240, 0.2), 0 0 40px rgba(30, 144, 255, 0.1);
-      border: 1px solid rgba(127, 90, 240, 0.2);
-    }
-
-    .account-title {
-      font-size: 2.2em;
-      font-weight: 800;
-      background: linear-gradient(120deg, #7f5af0 0%, #36cce4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-
-    .account-subtitle {
-      font-size: 0.95em;
-      color: #a0b0c0;
-      text-align: center;
-      margin-bottom: 32px;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .form-row.full {
-      grid-template-columns: 1fr;
-    }
-
-    .account-form {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .form-field {
-      margin-bottom: 16px;
-    }
-
-    .form-field label {
-      display: block;
-      font-size: 0.9em;
-      font-weight: 500;
-      color: #a0b0c0;
-      margin-bottom: 8px;
-      letter-spacing: 0.2px;
-    }
-
-    .form-field input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1.5px solid rgba(127, 90, 240, 0.3);
-      border-radius: 10px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95em;
-      color: #fff;
-      background: rgba(255, 255, 255, 0.05);
-      transition: all 0.3s;
-      outline: none;
-    }
-
-    .form-field input::placeholder {
-      color: #707080;
-    }
-
-    .form-field input:focus {
-      border-color: #7f5af0;
-      box-shadow: 0 0 0 3px rgba(127, 90, 240, 0.2);
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .btn-group {
-      display: flex;
-      gap: 12px;
-      margin-top: 28px;
-    }
-
-    .btn-group button {
-      flex: 1;
-    }
-
-    .create-btn {
-      padding: 14px 24px;
       border: none;
-      border-radius: 10px;
-      background: linear-gradient(120deg, #7f5af0 0%, #36cce4 100%);
-      color: #fff;
-      font-size: 1em;
-      font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 6px 20px rgba(127, 90, 240, 0.35);
-    }
-
-    .create-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(127, 90, 240, 0.45);
-    }
-
-    .back-btn {
-      padding: 14px 24px;
-      border: 1.5px solid rgba(127, 90, 240, 0.3);
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      color: #a0b0c0;
-      font-size: 1em;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .back-btn:hover {
-      background: rgba(127, 90, 240, 0.1);
-      border-color: #7f5af0;
-      color: #7f5af0;
-    }
-
-    .account-msg {
-      margin-top: 12px;
-      font-size: 0.9em;
-      color: #ff6b6b;
-      text-align: center;
-      min-height: 20px;
-    }
-
-    /* HOME PAGE */
-    #home-page {
-      background: transparent;
-    }
-
-    .home-hero {
-      width: 100%;
-      max-width: 420px;
-      background: rgba(20, 25, 45, 0.85);
-      backdrop-filter: blur(10px);
-      border-radius: 24px;
-      padding: 48px 32px;
-      box-shadow: 0 8px 32px rgba(127, 90, 240, 0.2), 0 0 40px rgba(30, 144, 255, 0.1);
-      border: 1px solid rgba(127, 90, 240, 0.2);
-      text-align: center;
-    }
-
-    .logo-home {
-      font-size: 2.8em;
-      font-weight: 800;
-      background: linear-gradient(120deg, #7f5af0 0%, #36cce4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 12px;
-    }
-
-    .welcome-text {
-      font-size: 1.1em;
-      color: #a0b0c0;
-      margin-bottom: 36px;
-      font-weight: 500;
-    }
-
-    .btn-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .btn {
-      padding: 15px 28px;
-      border: none;
-      border-radius: 12px;
-      font-size: 1.05em;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      cursor: pointer;
-      transition: all 0.2s;
-      outline: none;
-    }
-
-    .btn-primary {
-      background: linear-gradient(120deg, #7f5af0 0%, #36cce4 100%);
-      color: #fff;
-      box-shadow: 0 6px 20px rgba(127, 90, 240, 0.35);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(127, 90, 240, 0.45);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
-      color: #a0b0c0;
-      font-weight: 600;
-      border: 1.5px solid rgba(127, 90, 240, 0.3);
-      transition: all 0.2s;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(127, 90, 240, 0.1);
-      border-color: #7f5af0;
-      color: #7f5af0;
-      transform: translateY(-1px);
-    }
-
-    /* OTHER PAGES */
-    .page-content {
-      width: 100%;
-      max-width: 420px;
-      background: rgba(20, 25, 45, 0.85);
-      backdrop-filter: blur(10px);
-      border-radius: 24px;
-      padding: 48px 32px;
-      box-shadow: 0 8px 32px rgba(127, 90, 240, 0.2), 0 0 40px rgba(30, 144, 255, 0.1);
-      border: 1px solid rgba(127, 90, 240, 0.2);
-      min-height: auto;
-    }
-
-    .page-title {
-      font-size: 2.2em;
-      font-weight: 800;
-      background: linear-gradient(120deg, #7f5af0 0%, #36cce4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 24px;
-      text-align: center;
-    }
-
-    .page-text {
-      font-size: 1em;
-      color: #a0b0c0;
-      line-height: 1.6;
-      margin-bottom: 24px;
-      text-align: center;
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 14px 16px;
-      border: 1.5px solid rgba(127, 90, 240, 0.3);
-      border-radius: 12px;
-      font-family: 'Inter', sans-serif;
-      font-size: 1em;
-      margin-bottom: 12px;
-      outline: none;
-      color: #fff;
-      background: rgba(255, 255, 255, 0.05);
-      transition: all 0.3s;
-    }
-
-    .form-input::placeholder {
-      color: #707080;
-    }
-
-    .form-input:focus {
-      border-color: #7f5af0;
-      box-shadow: 0 0 0 3px rgba(127, 90, 240, 0.2);
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .chatbox {
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
-      min-height: 120px;
-      max-height: 300px;
-      overflow-y: auto;
-      border: 1px solid rgba(127, 90, 240, 0.2);
-    }
-
-    .chat-msg {
-      padding: 10px 12px;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      font-size: 0.95em;
-      line-height: 1.4;
-      word-break: break-word;
-    }
-
-    .chat-msg.user {
-      background: linear-gradient(120deg, #7f5af0 0%, #36cce4 100%);
-      color: #fff;
-      margin-left: auto;
-      width: fit-content;
-      max-width: 80%;
-    }
-
-    .chat-msg.ai {
-      background: rgba(127, 90, 240, 0.15);
-      color: #a0b0c0;
-      margin-right: auto;
-      width: fit-content;
-      max-width: 80%;
-      border: 1px solid rgba(127, 90, 240, 0.2);
+      opacity: 0;
+      z-index: 5000;
     }
 
     @media (max-width: 540px) {
-      .page { padding: 30px 16px; }
-      .login-hero, .account-hero, .home-hero, .page-content { padding: 40px 24px; border-radius: 16px; }
-      .logo-large { font-size: 2.4em; }
-      .logo-home { font-size: 2em; }
-      .page-title { font-size: 1.8em; }
-      .form-row { grid-template-columns: 1fr; }
-      .btn-group { flex-direction: column; }
-      .btn-group button { width: 100%; }
+      .landing-hero { padding: 40px 24px; border-radius: 16px; }
+      .logo-text { font-size: 1.8em; }
+      .stats-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <!-- ANIMATED SPACE BACKGROUND -->
-  <div class="space-stars">
-    <div class="nebula purple"></div>
-    <div class="nebula blue"></div>
-    <div class="nebula cyan"></div>
-  </div>
+  <!-- HIDDEN ACTIVATION BUTTON (completely invisible) -->
+  <button id="hidden-activate-btn" onclick="window.location.href='/activate';" title="hidden"></button>
 
-  <!-- LOGIN PAGE -->
-  <div class="page" id="login-page">
-    <div class="login-hero">
-      <div class="logo-large">UBG ULTRA</div>
-      <div class="tagline">Welcome back</div>
-      
-      <form class="login-form" onsubmit="event.preventDefault(); checkPw();">
-        <div class="form-group">
-          <label for="pw">Password</label>
-          <input id="pw" type="password" placeholder="Enter your password" autocomplete="off">
-        </div>
-        <button type="submit" class="login-btn">Enter</button>
-      </form>
+  <!-- LANDING PAGE -->
+  <div class="landing-hero">
+    <div class="logo-text">Unified Brilliance Growth</div>
+    <div class="logo-subtitle">Master English Grammar</div>
+    
+    <div class="tagline">Learn Grammar. Build Confidence. Excel.</div>
+    <div class="description">Join 50,000+ students worldwide who are mastering English grammar through our interactive platform.</div>
 
-      <div class="login-msg" id="login-msg"></div>
-      <div class="login-hint">Secure access to UBG ULTRA portal</div>
-    </div>
-  </div>
-
-  <!-- ACCOUNT CREATION PAGE -->
-  <div class="page hidden" id="create-account-page">
-    <div class="account-hero">
-      <div class="account-title">Create Account</div>
-      <div class="account-subtitle">Let's get you set up!</div>
-      
-      <form class="account-form" onsubmit="event.preventDefault(); createAccount();">
-        <div class="form-row">
-          <div class="form-field">
-            <label for="fname">First Name</label>
-            <input id="fname" type="text" placeholder="John" autocomplete="off">
-          </div>
-          <div class="form-field">
-            <label for="lname">Last Name</label>
-            <input id="lname" type="text" placeholder="Doe" autocomplete="off">
-          </div>
-        </div>
-
-        <div class="form-row full">
-          <div class="form-field">
-            <label for="username">Username / Display Name</label>
-            <input id="username" type="text" placeholder="Your awesome username" autocomplete="off">
-          </div>
-        </div>
-
-        <div class="btn-group">
-          <button type="submit" class="create-btn">Create Account</button>
-          <button type="button" class="back-btn" onclick="showPage('login-page')">Back</button>
-        </div>
-      </form>
-
-      <div class="account-msg" id="account-msg"></div>
-    </div>
-  </div>
-
-  <!-- HOME PAGE -->
-  <div class="page hidden" id="home-page">
-    <div class="home-hero">
-      <div class="logo-home">UBG ULTRA</div>
-      <div class="welcome-text" id="welcome-display">What would you like to do?</div>
-      
-      <div class="btn-grid">
-        <button class="btn btn-primary" onclick="location.href='/ai/'">⚡ AI Chatbot</button>
-        <button class="btn btn-primary" onclick="location.href='/games/'">🎮 Ultra Games</button>
-        <button class="btn btn-secondary" onclick="logout()">Logout</button>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-number">50K+</div>
+        <div class="stat-label">Active Students</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Grammar Lessons</div>
       </div>
     </div>
+
+    <a href="/join" class="join-btn">Join Now</a>
   </div>
 
   <script>
-    // Password constant
-    const PASSWORD = "052210";
-
-    // Generate stars dynamically
-    function generateStars() {
-      const container = document.querySelector('.space-stars');
-      const starCount = 100;
-      
-      for (let i = 0; i < starCount; i++) {
-        const star = document.createElement('div');
-        const size = Math.random() > 0.5 ? 'small' : (Math.random() > 0.5 ? 'medium' : 'large');
-        star.className = `star ${size}`;
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top = Math.random() * 100 + '%';
-        star.style.animationDelay = (Math.random() * 3) + 's';
-        container.appendChild(star);
+    // Check activation on page load
+    function checkActivation() {
+      const cookies = document.cookie.split(';');
+      const hasActivation = cookies.some(cookie => cookie.trim().startsWith('ubg_activated='));
+      if (hasActivation) {
+        window.location.href = '/home';
       }
     }
 
-    // Initialize stars on page load
-    generateStars();
-
-    // Navigate between pages
-    function showPage(id) {
-      document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
-      document.getElementById(id).classList.remove('hidden');
-    }
-
-    // Set authentication cookie
-    function setAuthCookie() {
-      const expiresDate = new Date();
-      expiresDate.setTime(expiresDate.getTime() + (24 * 60 * 60 * 1000)); // 24 hours
-      const expires = "expires=" + expiresDate.toUTCString();
-      document.cookie = "ubg_auth=true; " + expires + "; path=/; SameSite=Strict";
-    }
-
-    // Check password
-    function checkPw() {
-      const input = document.getElementById('pw');
-      const msg = document.getElementById('login-msg');
-      if (input.value === PASSWORD) {
-        msg.innerText = '';
-        input.value = '';
-        setAuthCookie();
-        showPage('create-account-page');
-      } else {
-        msg.innerText = '❌ Incorrect password';
-        input.value = '';
-      }
-    }
-
-    // Create account
-    function createAccount() {
-      const fname = document.getElementById('fname').value.trim();
-      const lname = document.getElementById('lname').value.trim();
-      const username = document.getElementById('username').value.trim();
-      const msg = document.getElementById('account-msg');
-
-      if (!fname || !lname || !username) {
-        msg.innerText = '❌ Please fill in all fields';
-        return;
-      }
-
-      if (username.length < 3) {
-        msg.innerText = '❌ Username must be at least 3 characters';
-        return;
-      }
-
-      // Store user info for display
-      localStorage.setItem('userInfo', JSON.stringify({
-        firstName: fname,
-        lastName: lname,
-        username: username
-      }));
-
-      // Clear form
-      document.getElementById('fname').value = '';
-      document.getElementById('lname').value = '';
-      document.getElementById('username').value = '';
-      msg.innerText = '';
-
-      // Show home page with welcome message
-      document.getElementById('welcome-display').innerText = `Welcome, ${username}! 🚀`;
-      showPage('home-page');
-    }
-
-    // Logout
-    function logout() {
-      // Clear auth cookie
-      document.cookie = "ubg_auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Strict;";
-      document.getElementById('welcome-display').innerText = 'What would you like to do?';
-      showPage('login-page');
-    }
-
-    // Allow Enter key for password form
-    document.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter' && document.getElementById('pw') === document.activeElement) {
-        checkPw();
-      }
-    });
-
-    // Allow Enter key for account form
-    document.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter' && (document.getElementById('fname') === document.activeElement || 
-          document.getElementById('lname') === document.activeElement || 
-          document.getElementById('username') === document.activeElement)) {
-        createAccount();
-      }
-    });
+    checkActivation();
   </script>
 </body>
 </html>
