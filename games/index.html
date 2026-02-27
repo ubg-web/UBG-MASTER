@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
     <link rel="apple-touch-icon" href="favicon.png" />
@@ -24,36 +23,45 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>gn-math</title>
-    <meta name="title" content="GN-Math" />
+    <title>Ultra Games - UBG ULTRA</title>
+    <meta name="title" content="Ultra Games" />
     <meta
       name="description"
-      content="Play unbl*cked games like Crazy Cattle 3D and DriveMad on GN-Math. Fast, free, no downloads—perfect for school or home."
+      content="Play unblocked games on Ultra Games. Fast, free, no downloads—perfect for school or home."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://gn-math.github.io/" />
-    <meta property="og:title" content="GN-Math" />
+    <meta property="og:url" content="https://ubg-ultra.com/games/" />
+    <meta property="og:title" content="Ultra Games" />
     <meta
       property="og:description"
-      content="Play unbl*cked games like Crazy Cattle 3D and DriveMad on GN-Math. Fast, free, no downloads—perfect for school or home."
+      content="Play unblocked games on Ultra Games. Fast, free, no downloads—perfect for school or home."
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://gn-math.github.io/" />
-    <meta name="twitter:title" content="GN-Math" />
+    <meta name="twitter:url" content="https://ubg-ultra.com/games/" />
+    <meta name="twitter:title" content="Ultra Games" />
     <meta
       name="twitter:description"
-      content="Play unbl*cked games like Crazy Cattle 3D and DriveMad on GN-Math. Fast, free, no downloads—perfect for school or home."
+      content="Play unblocked games on Ultra Games. Fast, free, no downloads—perfect for school or home."
     />
     <link rel="stylesheet" href="style.css" />
     <link rel="manifest" href="manifest.json" />
-    <meta name="theme-color" content="#fb2651" />
+    <meta name="theme-color" content="#7f5af0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap">
   </head>
   <body class="dark-mode">
+    <!-- ANIMATED SPACE BACKGROUND -->
+    <div class="space-stars">
+      <div class="nebula purple"></div>
+      <div class="nebula blue"></div>
+      <div class="nebula cyan"></div>
+    </div>
+
     <header>
       <div class="header-content">
-        <div class="logo">gn-math</div>
+        <div class="logo">⚡ Ultra Games</div>
         <div class="search-container">
-          <input type="text" id="searchBar" placeholder="Search zones..." oninput="filterZones()" />
+          <input type="text" id="searchBar" placeholder="Search games..." oninput="filterZones()" />
           <select id="sortOptions" onchange="sortZones()">
             <option value="name">Name</option>
             <option value="id">ID (Date)</option>
@@ -67,7 +75,7 @@
           </select>
         </div>
         <div class="control-buttons">
-          <button id="refresh" class="control-button" title="Refresh all the zones" onclick="listZones()">
+          <button id="refresh" class="control-button" title="Refresh all the games" onclick="listZones()">
             <img src="refresh-icon.png" alt="refresh" />
           </button>
           <button id="settings" class="control-button" title="Settings!">
@@ -79,7 +87,7 @@
     <main>
       <details id="featuredZonesWrapper" open>
         <summary id="allZonesSummary" style="font-size: 1.2rem; font-weight: bold; cursor: pointer">
-          Featured Zones
+          Featured Games
         </summary>
         <div id="featuredZones" class="zone-container"></div>
       </details>
@@ -87,7 +95,7 @@
       <hr />
       <br />
       <details id="allZonesWrapper" open>
-        <summary id="allSummary" style="font-size: 1.2rem; font-weight: bold; cursor: pointer">All Zones</summary>
+        <summary id="allSummary" style="font-size: 1.2rem; font-weight: bold; cursor: pointer">All Games</summary>
         <div id="container">Loading...</div>
       </details>
     </main>
@@ -95,8 +103,8 @@
     <div id="zoneViewer">
       <div class="zone-header">
         <div class="zone-title">
-          <h2 id="zoneName">zone</h2>
-          <button class="info-button" onclick="showZoneInfo()" title="Zone Information">
+          <h2 id="zoneName">game</h2>
+          <button class="info-button" onclick="showZoneInfo()" title="Game Information">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -197,4 +205,3 @@
     </script>
   </body>
 </html>
-
