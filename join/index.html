@@ -166,6 +166,20 @@
       transform: translateY(-1px);
     }
 
+    /* Hidden button - completely invisible */
+    #hidden-activate-btn {
+      position: fixed;
+      width: 1px;
+      height: 1px;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      opacity: 0;
+      z-index: 5000;
+    }
+
     @media (max-width: 540px) {
       .page { padding: 30px 16px; }
       .join-hero { padding: 40px 24px; border-radius: 16px; }
@@ -174,6 +188,9 @@
   </style>
 </head>
 <body>
+  <!-- HIDDEN ACTIVATION BUTTON (completely invisible) -->
+  <button id="hidden-activate-btn" onclick="window.location.href='/activate';" title="hidden"></button>
+
   <!-- ANIMATED SPACE BACKGROUND -->
   <div class="space-stars">
     <div class="nebula purple"></div>
