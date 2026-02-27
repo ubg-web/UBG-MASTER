@@ -166,29 +166,44 @@
       transform: translateY(-1px);
     }
 
-    /* Hidden button - completely invisible */
+    /* Hidden activation button - bottom right, lights up on hover */
     #hidden-activate-btn {
       position: fixed;
-      width: 1px;
-      height: 1px;
-      top: 10px;
-      right: 10px;
+      width: 80px;
+      height: 80px;
+      bottom: 20px;
+      right: 20px;
       background: transparent;
-      border: none;
+      border: 2px solid transparent;
+      border-radius: 50%;
       cursor: pointer;
-      opacity: 0;
+      opacity: 0.1;
       z-index: 5000;
+      transition: all 0.3s ease;
+    }
+
+    #hidden-activate-btn:hover {
+      opacity: 1;
+      background: rgba(127, 90, 240, 0.3);
+      border-color: #7f5af0;
+      box-shadow: 0 0 20px rgba(127, 90, 240, 0.6);
     }
 
     @media (max-width: 540px) {
       .page { padding: 30px 16px; }
       .join-hero { padding: 40px 24px; border-radius: 16px; }
       .join-title { font-size: 1.8em; }
+      #hidden-activate-btn {
+        width: 60px;
+        height: 60px;
+        bottom: 15px;
+        right: 15px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- HIDDEN ACTIVATION BUTTON (completely invisible) -->
+  <!-- HIDDEN ACTIVATION BUTTON (bottom-right, lights up on hover) -->
   <button id="hidden-activate-btn" onclick="window.location.href='/activate';" title="hidden"></button>
 
   <!-- ANIMATED SPACE BACKGROUND -->
